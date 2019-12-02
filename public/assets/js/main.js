@@ -41,22 +41,23 @@ const paintSeries = (infoData) => {
         else {
             elementImage.src = imageDefault;
         }
+        elementLi.addEventListener('click', selectedFavourite)
     }
 }
-let favouritesSeries = []
+
 
 const selectedFavourite = (event) => {
-
-    event.currentTarget.closest('li').classList.add('favourite')
-    // let fav = localStorage.setItem(, name)
-    // event.currentTarget = fav
-    console.log(event.target)
+    // let favouritesSeries = {
+    //     "búsqueda": input.value,
+    //     "info": event.currentTarget.innerHTML,
+    // }
+    event.currentTarget.closest('li').classList.toggle('favourite')
+    // localStorage.setItem(input.value, favouritesSeries)
+    localStorage.setItem(event.currentTarget.innerHTML, input.value)
 }
 
-const lis = document.querySelectorAll('li')
-for (let li of lis) {
-    li.addEventListener('click', selectedFavourite)
-}
+
+
 
 
 
