@@ -24,7 +24,6 @@ function getInfo() {
         })
 }
 
-
 const paintSeries = (infoData) => {
     let imageDefault = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV.'
     for (let i = 0; i < infoData.length; i++) {
