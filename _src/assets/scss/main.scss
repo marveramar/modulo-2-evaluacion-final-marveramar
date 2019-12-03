@@ -1,16 +1,21 @@
 * {
 	box-sizing: border-box;
 	margin: 0px;
-	padding:0px;
-	text-align: center;
+	padding:0px;	
+}
+.wrapper {
+	display: flex;
+	flex-direction: row;
 }
 .li{
+	text-align: center;
 	background-color: rgb(162, 218, 140);
 	color: green;
-	
 }
 .favourite{
 	background-color:green;
-	color: rgb(162,218,140);
-	width: 30%;
+	color: rgb(162,218,140);	
+}
+.hidden{
+	display:none;
 }
