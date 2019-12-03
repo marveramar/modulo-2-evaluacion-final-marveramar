@@ -1,20 +1,43 @@
 * {
 	box-sizing: border-box;
+	list-style-type: none;
+	
 	
 }
 .wrapper {
 	display: flex;
 	flex-direction: row;
 }
+.list{
+	display: flex;
+	flex-wrap: wrap;
+}
 .li{
+
+	margin: 10px;
 	text-align: center;
 	background-color: rgb(162, 218, 140);
 	color: green;
 }
 .favourite{
+	margin:10px;
 	background-color:green;
 	color: rgb(162,218,140);	
 }
 .hidden{
 	display:none;
+}
+.input{
+	border: 1px solid black;
+}
+.btn{
+text-align: center;
+	margin: 10px;
+	background-color: purple;
+}
+button{
+	height: 20px;
+	width: 75px;
+	border: none;
+	height: 20px;
 }

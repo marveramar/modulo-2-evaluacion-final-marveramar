@@ -1,14 +1,11 @@
 'use strict';
 
-console.log('>> Ready :)');
-
 const input = document.querySelector('#input');
 const btn = document.querySelector('#btn');
 const list = document.querySelector('#list');
 const form = document.querySelector('#form');
-const errorText = document.querySelector('.error')
-const divFav = document.querySelector('.div')
-
+const errorText = document.querySelector('.error');
+const divFav = document.querySelector('.div');
 
 function getInfo() {
     const inputValue = input.value
@@ -27,12 +24,13 @@ function getInfo() {
         })
 }
 
+
 const paintSeries = (infoData) => {
     let imageDefault = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV.'
     for (let i = 0; i < infoData.length; i++) {
         const name = infoData[i].show.name
         const img = infoData[i].show.image
-        const id = 'X'
+        const id = infoData[i].show.id
         const elementLi = document.createElement('li');
         const elementH2 = document.createElement('h2');
         const content = document.createTextNode(`${name}`);
@@ -40,8 +38,9 @@ const paintSeries = (infoData) => {
         elementLi.appendChild(elementH2);
         const elementImage = document.createElement('img');
         elementLi.appendChild(elementImage)
-        const elementId = document.createElement('button');
+        const elementId = document.createElement('span');
         const IdContent = document.createTextNode(`${id}`);
+        elementId.classList.add('hidden');
         elementId.appendChild(IdContent);
         elementLi.appendChild(elementId);
         elementLi.classList.add('li');
@@ -62,7 +61,6 @@ const paintSeries = (infoData) => {
             list.innerHTML = ''
         }
         input.addEventListener('keydown', clearWindow)
-        id.addEventListener('click', deleteFav);
     }
 }
 
@@ -71,35 +69,35 @@ const paintSeries = (infoData) => {
 let array = []
 const selectedFavourite = (event) => {
     console.log(event.currentTarget)
-
     const selected = event.currentTarget
-    event.currentTarget.closest('li').classList.toggle('favourite')
+    event.currentTarget.closest('li').classList.add('favourite')
     const object = {
         "info": selected.innerHTML
     }
     array.push(object);
     localStorage.setItem("listFav", JSON.stringify(array))
-    divFav.appendChild(selected)
+    divFav.appendChild(selected);
 }
 
 //función coger datos localStorage
+
 let lastFavourites = '';
 const getFavourites = () => {
-    console.log('funciona')
     const myLocalStorage = localStorage.getItem("listFav");
     if (myLocalStorage !== null) {
         lastFavourites = JSON.parse(myLocalStorage)
         paintFav(lastFavourites);
     }
 }
+
 //función pasar por el array q me traigo de local
 
 const paintFav = (array) => {
     for (let element of array) {
         addLastVisited(element)
-
     }
 }
+
 //función para pintar el objeto traido de local
 
 const addLastVisited = (ob) => {
@@ -107,21 +105,7 @@ const addLastVisited = (ob) => {
     elementLiFav.classList.add('favourite');
     elementLiFav.innerHTML = ob.info;
     divFav.appendChild(elementLiFav);
-
 }
-//función para borrar favorita
-
-const deleteFav = () => {
-    event.currentTarget.closest('li').classList.remove('favourite')
-    event.currentTarget.closest('li').classList.add('hidden')
-
-    console.log('estoy on fire')
-
-
-}
-
-
-
 
 //función para que 'enter' imite 'click'
 
@@ -130,6 +114,7 @@ const enterKeyHandler = (event) => {
     getInfo()
 }
 
+// btnDelete.addEventListener('click', deleteFav);
 window.addEventListener('load', getFavourites);
 form.addEventListener('submit', enterKeyHandler);
 btn.addEventListener('click', getInfo);
