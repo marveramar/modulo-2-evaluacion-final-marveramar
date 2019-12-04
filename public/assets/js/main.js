@@ -6,6 +6,8 @@ const list = document.querySelector('#list');
 const form = document.querySelector('#form');
 const errorText = document.querySelector('.error');
 const divFav = document.querySelector('.div');
+const btnLog = document.querySelector('.btn-log');
+let series;
 
 function getInfo() {
     const inputValue = input.value
@@ -13,6 +15,7 @@ function getInfo() {
 
         .then(response => response.json())
         .then(data => {
+            series = data;
             if (data.length > 0) {
                 errorText.classList.add('hidden')
                 paintSeries(data)
@@ -24,13 +27,17 @@ function getInfo() {
         })
 }
 
-
 const paintSeries = (infoData) => {
     let imageDefault = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV.'
     for (let i = 0; i < infoData.length; i++) {
         const name = infoData[i].show.name
         const img = infoData[i].show.image
         const id = infoData[i].show.id
+        const time = infoData[i].show.schedule
+        const timeSerie = time.time
+        const elementP = document.createElement('p');
+        const contentP = document.createTextNode(`${timeSerie}`)
+        elementP.appendChild(contentP)
         const elementLi = document.createElement('li');
         const elementH2 = document.createElement('h2');
         const content = document.createTextNode(`${name}`);
@@ -41,6 +48,7 @@ const paintSeries = (infoData) => {
         const elementId = document.createElement('span');
         const IdContent = document.createTextNode(`${id}`);
         elementId.classList.add('hidden');
+        elementLi.appendChild(elementP);
         elementId.appendChild(IdContent);
         elementLi.appendChild(elementId);
         elementLi.classList.add('li');
@@ -114,7 +122,15 @@ const enterKeyHandler = (event) => {
     getInfo()
 }
 
+
+const log = () => {
+    for (let i = 0; i < series.length; i++) {
+        console.log(series[i].show.name)
+    }
+}
+
 // btnDelete.addEventListener('click', deleteFav);
+btnLog.addEventListener('click', log)
 window.addEventListener('load', getFavourites);
 form.addEventListener('submit', enterKeyHandler);
 btn.addEventListener('click', getInfo);
